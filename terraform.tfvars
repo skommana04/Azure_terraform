@@ -15,3 +15,4 @@ network_rules = {
   "RABBITMQ" = { port = 5672, priority = 140 }
 }
 private_subnet_nsg_name = "private-subnet-nsg"
+vm_name = [runner, db]

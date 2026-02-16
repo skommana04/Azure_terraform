@@ -9,3 +9,4 @@ variable "private_subnet_address_prefixes" {}
 variable "public_subnet_address_prefixes" {}
 variable "network_rules" {}
 variable "private_subnet_nsg_name" {}
+variable "vm_name" {}

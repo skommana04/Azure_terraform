@@ -6,7 +6,7 @@ resource "azurerm_resource_group" "rg" {
 # in this module cicd_network_infra, I am creating vnet,sg and subnet
 
 module "cicd_network_infra" {
-  source = "git::https://github.com/your-username/Azure-terraform-modules.git//vnet?ref=main"
+  source = "git::https://github.com/skommana04/Azure_terraform_modules.git//modules/network?ref=main"
 
   rg_name                         = var.rg_name
   location                        = var.location

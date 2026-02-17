@@ -33,12 +33,12 @@ module "public_vms" {
 }
 
 
-module "web_apps" {
+module "web_apps_service" {
     
     source = "git::https://github.com/skommana04/Azure_terraform_modules.git//modules/webapp?ref=main"
-    name = var.acr_name
+    acr_name = var.acr_name
     for_each            = var.web_apps
-    resource_group_name = var.rg_name
+    rg_name = var.rg_name
     location            = var.location    
     webapp_name = "${each.key}"
     image_name  = each.value.image

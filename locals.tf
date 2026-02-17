@@ -37,8 +37,8 @@ locals {
       "AMQP_HOST" = local.rabbitmq_ip
       "CART_PORT" = "80"
       "USER_PORT" = "80"
-      "AMQP_USER" = roboshop
-      "AMQP_PASS" = roboshop123
+      "AMQP_USER" = "roboshop"
+      "AMQP_PASS" = "roboshop123"
     })
 
   }

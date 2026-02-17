@@ -8,8 +8,8 @@ resource "azurerm_resource_group" "rg" {
 module "cicd_network_infra" {
   source = "git::https://github.com/skommana04/Azure_terraform_modules.git//modules/network?ref=main"
 
-  rg_name                         = var.rg_name
-  location                        = var.location
+  rg_name                         = azurerm_resource_group.rg.name
+  location                        = azurerm_resource_group.rg.location
   sg_name                         = var.sg_name
   network_name                    = var.network_name
   public_subnet_name              = var.public_subnet_name
@@ -22,25 +22,35 @@ module "cicd_network_infra" {
 }
 
 module "public_vms" {
-    for_each = toset(var.vm_name)
-    source = "git::https://github.com/skommana04/Azure_terraform_modules.git//modules/vm?ref=main"
-  
-    rg_name                         = var.rg_name
-    location                        = var.location
-    subnet_id=  module.cicd_network_infra.public_subnet_id
-    #instance_count = length(var.vm_name)
-    vm_name = each.value
+  for_each = toset(var.vm_name)
+  source   = "git::https://github.com/skommana04/Azure_terraform_modules.git//modules/vm?ref=main"
+
+  rg_name   = azurerm_resource_group.rg.name
+  location  = azurerm_resource_group.rg.location
+  subnet_id = module.cicd_network_infra.public_subnet_id
+  #instance_count = length(var.vm_name)
+  vm_name = each.value
+
+  depends_on = [
+    module.cicd_network_infra
+  ]
+
 }
 
 
 module "web_apps_service" {
-    
-    source = "git::https://github.com/skommana04/Azure_terraform_modules.git//modules/webapp?ref=main"
-    acr_name = var.acr_name
-    for_each            = var.web_apps
-    rg_name = var.rg_name
-    location            = var.location    
-    webapp_name = "${each.key}"
-    image_name  = each.value.image
-    env_vars    = local.app_env_config[each.key]
-   }
+
+  source      = "git::https://github.com/skommana04/Azure_terraform_modules.git//modules/webapp?ref=main"
+  acr_name    = var.acr_name
+  for_each    = var.web_apps
+  rg_name     = azurerm_resource_group.rg.name
+  location    = azurerm_resource_group.rg.location
+  webapp_name = each.key
+  image_name  = each.value.image
+  env_vars    = local.app_env_config[each.key]
+
+  depends_on = [
+    module.cicd_network_infra,
+    module.public_vms
+  ]
+}

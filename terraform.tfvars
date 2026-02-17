@@ -15,43 +15,43 @@ network_rules = {
   "RABBITMQ" = { port = 5672, priority = 140 }
 }
 private_subnet_nsg_name = "private-subnet-nsg"
-vm_name = ["runner-inst", "db-inst"]
-acr_name = "roboshopregistry"
+vm_name                 = ["runner-inst", "db-inst"]
+acr_name                = "roboshopregistry"
 web_apps = {
-    "catalogmedha" = {
-      image    = "catalogue"
-      env_vars = { "MONGO" = true, "MONGO_URL" = "" }
-      #MONGO_URL="mongodb://<MONGODB-SERVER-IPADDRESS>:27017/catalogue
-    # },
-    # "usermedha" = {
-    #   image    = "user"
-    #   env_vars = { "MONGO" = true, "REDIS_URL" = "", "MONGO_URL" = "" }
-    #   #MONGO_URL="mongodb://<MONGODB-SERVER-IP-ADDRESS>:27017/users"
-    #   #REDIS_URL='redis://<REDIS-IP-ADDRESS>:6379'
-    # },
-    # "cartmedha" = {
-    #   image    = "cart"
-    #   env_vars = { "REDIS_HOST" = "", "CATALOGUE_HOST" = "", "CATALOGUE_PORT"= "" }
-    #   #CATALOGUE_HOST=<CATALOGUE-SERVER-IP>
-    #   #CATALOGUE_PORT=8080
-    # }
-    #  "shippingmedha" = {
-    #   image    = "shipping"
-    #   env_vars = { "CART_ENDPOINT" = "", "DB_HOST" = "" }
-    #   #Environment=CART_ENDPOINT=<CART-SERVER-IPADDRESS>:8080
-    #   #Environment=DB_HOST=<MYSQL-SERVER-IPADDRESS>      
-    # }
-    # "paymentmedha" = {
-    #   image    = "shipping"
-    #   env_vars = { "CART_HOST" = "", "CART_PORT" = "", "USER_HOST" = "", "USER_PORT" = "", "AMQP_HOST" = "", "AMQP_USER" = "", "AMQP_PASS" = "" }
-    # #   Environment=CART_HOST=<CART-SERVER-IPADDRESS>
-    # #   Environment=CART_PORT=8080
-    # #   Environment=USER_HOST=<USER-SERVER-IPADDRESS>
-    # #   Environment=USER_PORT=8080
-    # #   Environment=AMQP_HOST=<RABBITMQ-SERVER-IPADDRESS>
-    # #   Environment=AMQP_USER=roboshop
-    # #   Environment=AMQP_PASS=roboshop123      
-    }
-
-    # Add all 9 apps here...
+  "catalogmedha" = {
+    image    = "catalogue"
+    env_vars = { "MONGO" = true, "MONGO_URL" = "" }
+    #MONGO_URL="mongodb://<MONGODB-SERVER-IPADDRESS>:27017/catalogue
+  },
+  "usermedha" = {
+    image    = "user"
+    env_vars = { "MONGO" = true, "REDIS_URL" = "", "MONGO_URL" = "" }
+    #MONGO_URL="mongodb://<MONGODB-SERVER-IP-ADDRESS>:27017/users"
+    #REDIS_URL='redis://<REDIS-IP-ADDRESS>:6379'
+  },
+  "cartmedha" = {
+    image    = "cart"
+    env_vars = { "REDIS_HOST" = "", "CATALOGUE_HOST" = "", "CATALOGUE_PORT" = "" }
+    #CATALOGUE_HOST=<CATALOGUE-SERVER-IP>
+    #CATALOGUE_PORT=8080
   }
+  "shippingmedha" = {
+    image    = "shipping"
+    env_vars = { "CART_ENDPOINT" = "", "DB_HOST" = "" }
+    #Environment=CART_ENDPOINT=<CART-SERVER-IPADDRESS>:8080
+    #Environment=DB_HOST=<MYSQL-SERVER-IPADDRESS>      
+  }
+  "paymentmedha" = {
+    image    = "shipping"
+    env_vars = { "CART_HOST" = "", "CART_PORT" = "", "USER_HOST" = "", "USER_PORT" = "", "AMQP_HOST" = "", "AMQP_USER" = "", "AMQP_PASS" = "" }
+    #   Environment=CART_HOST=<CART-SERVER-IPADDRESS>
+    #   Environment=CART_PORT=8080
+    #   Environment=USER_HOST=<USER-SERVER-IPADDRESS>
+    #   Environment=USER_PORT=8080
+    #   Environment=AMQP_HOST=<RABBITMQ-SERVER-IPADDRESS>
+    #   Environment=AMQP_USER=roboshop
+    #   Environment=AMQP_PASS=roboshop123      
+  }
+
+  # Add all 9 apps here...
+}

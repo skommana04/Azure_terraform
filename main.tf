@@ -22,11 +22,12 @@ module "cicd_network_infra" {
 }
 
 module "public_vms" {
-  source = "git::https://github.com/skommana04/Azure_terraform_modules.git//modules/vm?ref=main"
-  for_each = toset(var.vm_name)
-  rg_name                         = var.rg_name
-  location                        = var.location
-  subnet_id=module.cicd_network_infra.public_subnet_id
-  instance_count = length(var.vm_name)
-  vm_name = each.value
+    for_each = toset(var.vm_name)
+    source = "git::https://github.com/skommana04/Azure_terraform_modules.git//modules/vm?ref=main"
+  
+    rg_name                         = var.rg_name
+    location                        = var.location
+    subnet_id=  module.cicd_network_infra.public_subnet_id
+    instance_count = length(var.vm_name)
+    vm_name = each.value
 }

@@ -37,6 +37,21 @@ module "public_vms" {
 
 }
 
+resource "azurerm_container_registry" "roboshop_acr" {
+  name                = var.acr_name
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  sku                 = "Basic"
+  admin_enabled       = true
+}
+
+resource "azurerm_service_plan" "roboshop_svc_plan" {
+  name                = "robotshop-plan"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  os_type             = "Linux"
+  sku_name            = "B1"
+}
 
 module "web_apps_service" {
 
@@ -45,6 +60,9 @@ module "web_apps_service" {
   for_each    = var.web_apps
   rg_name     = azurerm_resource_group.rg.name
   location    = azurerm_resource_group.rg.location
+  service_plan_id  = azurerm_service_plan.roboshop_svc_plan.id
+  acr_login_server = azurerm_container_registry.roboshop_acr.login_server
+  acr_id           = azurerm_container_registry.roboshop_acr.id
   webapp_name = each.key
   image_name  = each.value.image
   env_vars    = local.app_env_config[each.key]

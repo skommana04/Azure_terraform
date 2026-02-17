@@ -28,6 +28,6 @@ module "public_vms" {
     rg_name                         = var.rg_name
     location                        = var.location
     subnet_id=  module.cicd_network_infra.public_subnet_id
-    instance_count = length(var.vm_name)
+    #instance_count = length(var.vm_name)
     vm_name = each.value
 }

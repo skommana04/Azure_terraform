@@ -31,3 +31,16 @@ module "public_vms" {
     #instance_count = length(var.vm_name)
     vm_name = each.value
 }
+
+
+module "web_apps" {
+    
+    source = "git::https://github.com/skommana04/Azure_terraform_modules.git//modules/webapp?ref=main"
+    name = var.acr_name
+    for_each            = var.web_apps
+    resource_group_name = var.rg_name
+    location            = var.location    
+    webapp_name = "${each.key}"
+    image_name  = each.value.image
+    env_vars    = local.app_env_config[each.key]
+   }

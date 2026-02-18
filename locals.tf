@@ -22,7 +22,7 @@ locals {
 
     "cartmedha" = merge(var.web_apps["cartmedha"].env_vars, {
       "REDIS_HOST"     = local.redis_ip
-      "CATALOGUE_HOST" = "cataloguemedha-medha.azurewebsites.net"
+      "CATALOGUE_HOST" = "cataloguemedha.azurewebsites.net"
       "CATALOGUE_PORT" = "80"
     })
 

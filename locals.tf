@@ -41,5 +41,7 @@ locals {
       "AMQP_PASS" = "roboshop123"
     })
 
+    "frontendmedha" = {}
+
   }
 }
